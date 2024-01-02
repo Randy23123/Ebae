@@ -93,30 +93,4 @@ public class AuthenticationController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
         }
     }
-
-    @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public ResponseEntity<Profile> getProfile() {
-        try {
-            String username = SecurityContextHolder.getContext().getAuthentication().getName();
-
-            User user = userDao.getByUserName(username);
-            if (user == null) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
-            }
-
-            Profile profile = profileDao.showProfile(user.getId());
-
-            if (profile == null) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found");
-            }
-
-            return new ResponseEntity<>(profile, HttpStatus.OK);
-        } catch (ResponseStatusException rse) {
-            throw rse;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.", e);
-        }
-    }
 }
