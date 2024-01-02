@@ -11,7 +11,7 @@ import org.yearup.models.User;
 import java.security.Principal;
 
 // convert this class to a REST controller
-// only logged in users should have access to these actions
+// only logged-in users should have access to these actions
 public class ShoppingCartController
 {
     // a shopping cart requires
