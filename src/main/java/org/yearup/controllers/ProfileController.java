@@ -2,7 +2,6 @@ package org.yearup.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,11 +17,9 @@ public class ProfileController {
     }
 
     @RequestMapping(value = "/profile/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Profile> getProfile(@PathVariable int id) {
+    public ResponseEntity<Profile> getProfile(@PathVariable int userId) {
         try {
-            String username = SecurityContextHolder.getContext().getAuthentication().getName();
-
-            Profile profile = profileDao.showProfile(id);
+            Profile profile = profileDao.showProfile(userId);
 
             if (profile == null) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found");
@@ -31,7 +28,6 @@ public class ProfileController {
             return new ResponseEntity<>(profile, HttpStatus.OK);
         } catch (ResponseStatusException rse) {
             throw rse;
-
         } catch (Exception e) {
             e.printStackTrace();
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.", e);
