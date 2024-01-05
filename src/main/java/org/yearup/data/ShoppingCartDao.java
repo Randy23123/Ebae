@@ -23,7 +23,7 @@ public interface ShoppingCartDao
     void clearCart(int userId);
 
 
-    List<Product> getCartItemsByUserId(int userId);
+
 
     ShoppingCart updateCartItem(int userId, int productId, ShoppingCartItem shoppingCartItem);
 }

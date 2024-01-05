@@ -90,23 +90,17 @@ public class MySqlShoppingCartDao implements ShoppingCartDao {
         }
     }
 
-
-    @Override
-    public List<Product> getCartItemsByUserId(int userId) {
-        return null;
-    }
-
-
-
     @Override
     public ShoppingCart updateCartItem(int userId, int productId, ShoppingCartItem shoppingCartItem) {
         try {
+            //gets the usersCart based off id
             ShoppingCart shoppingCart = getByUserId(userId);
 
             if (shoppingCart == null) {
                 throw new RuntimeException("Shopping cart not found for user: " + userId);
             }
 
+            //matches the item by using productId passed in
             ShoppingCartItem matchedItem = shoppingCart.getItems().get(productId);
 
             if (matchedItem != null) {
