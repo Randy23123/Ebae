@@ -38,8 +38,10 @@ public class MySqlShoppingCartDao implements ShoppingCartDao {
                 while (resultSet.next()) {
                     int productId = resultSet.getInt("product_id");
                     int quantity = resultSet.getInt("quantity");
+
                     Product product = productDao.getById(productId);
                     ShoppingCartItem item = new ShoppingCartItem(product, quantity);
+
                     items.put(productId, item);
                 }
             }

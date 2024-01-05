@@ -23,23 +23,16 @@ public class ShoppingCartController{
     @Autowired
     private UserDao userDao;
 
-    @Autowired
-    private ProductDao productDao;
-
     // a shopping cart requires
     // each method in this controller requires a Principal object as a parameter
     @GetMapping("/cart")
     public ShoppingCart getCart(Principal principal) {
         try {
             if (principal != null) {
-
-
                 String userName = principal.getName();
-
                 // find database user by userId
                 User user = userDao.getByUserName(userName);
                 int userId = user.getId();
-
 
                 return shoppingCartDao.getByUserId(userId);
             } else {
